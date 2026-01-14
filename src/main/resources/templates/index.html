@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Portfolio Builder</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Portfolio Builder</h2>
+
+    <!-- Logout Button -->
+    <div style="text-align:right; margin-bottom: 10px;">
+        <a href="/logout" style="text-decoration:none; color:#d9534f; font-weight:bold;">
+            Logout
+        </a>
+    </div>
+
+    <form action="/save" method="post">
+
+        <label>Name</label>
+        <input type="text" name="name" required>
+
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Skills</label>
+        <input type="text" name="skills"
+               placeholder="Java, Spring Boot, SQL">
+
+        <label>Projects</label>
+        <input type="text" name="projects"
+               placeholder="Portfolio Builder, Journal App">
+
+        <label>Project Link (GitHub / Demo)</label>
+        <input type="text" name="projectLinks"
+               placeholder="https://github.com/username/project">
+
+        <label>Resume Link</label>
+        <input type="text" name="resumeLink"
+               placeholder="Google Drive / Dropbox link">
+
+        <label>Profile Image URL</label>
+        <input type="text" name="profileImageUrl"
+               placeholder="https://image-url">
+
+        <button type="submit">Save Portfolio</button>
+    </form>
+
+    <div class="portfolio-list">
+        <h2>Saved Profiles</h2>
+
+        <div th:each="p : ${portfolios}" class="portfolio-card">
+
+            <img th:if="${p.profileImageUrl != null}"
+                 th:src="${p.profileImageUrl}"
+                 class="profile-img"/>
+
+            <strong th:text="${p.name}"></strong><br>
+            <span th:text="${p.email}"></span><br>
+            <em th:text="${p.skills}"></em><br><br>
+
+            <a th:href="${p.projectLinks}" target="_blank">🔗 View Project</a>
+            <a th:href="${p.resumeLink}" target="_blank">📄 View Resume</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
